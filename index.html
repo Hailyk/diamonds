@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Diamond Generator</title>
+        <script type="text/x-template" id='template'>
+            <div class='box'>
+                <p class='box_a'>{{diamond.a}}</p>
+                <p class='box_b'>{{diamond.b}}</p>
+                <p class='box_c'>{{diamond.c}}</p>
+                <p class='box_d'>{{diamond.d}}</p>
+            </div>
+        </script>
+        <script type="text/javascript" src="./require.js"></script>
+        <link rel="stylesheet" text="text/css" href="./styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="sheet">
+            <cell v-for='diamond in diamonds'
+            v-bind:diamond = 'diamond'
+            v-bind:key='diamond.id'
+            v-bind:a = 'diamond.a'
+            v-bind:b = 'diamond.b'
+            v-bind:c = 'diamond.c'
+            v-bind:d = 'diamond.d'
+            ></cell>
+        </div>
+    </body>
+    <script type="text/javascript" src="./main.js"></script>
+</html>
