@@ -111,5 +111,3 @@ function generate(diff, numMul, range, numQuest){
 // let diffBTWAB = 20; // max difference between left and right number
 
 // let numberOfQuestion = 10; //how many questions to generate
-
-module.exports = generate;
