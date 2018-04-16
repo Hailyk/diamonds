@@ -1,0 +1,22 @@
+#headerBar{
+    color:rgb(255,82,82);
+}
+.copyright{
+    margin-bottom: 0;
+}
+.card{
+    margin: 40px auto;
+    width: 50%;
+    min-width: 500px
+}
+a{
+    color: rgb(66,66,66);;
+    font-weight: none;
+    -webkit-tap-highlight-color: none;
+    -webkit-tap-highlight-color: none;
+}
+a:-webkit-any-link{
+    color:none;
+    cursor: pointer;
+    text-decoration: none;
+}

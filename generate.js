@@ -88,26 +88,26 @@ function generate(diff, numMul, range, numQuest){
     for(let i = 0; i <= numQuest-1; i++){
         let numbers = randomNumber(2,true,numMul,i+1, range);
         
-        //console.log(i+1+".");
-        
         let answer = generateAnswer(numbers[0],numbers[1]);
-        questions[0][i] = answer;
+        questions[0][i] = {
+            id:i,
+            a:answer[0],
+            b:answer[1],
+            c:answer[2],
+            d:answer[3],
+        }
         
         let diamond = cloneObj(answer);
         
         let question = difficulty(diff,i+1, diamond);
         
-        //console.log(question);
-        //console.log("");
-        questions[1][i] = question;
+        questions[1][i] = {
+            id:i,
+            a:question[0],
+            b:question[1],
+            c:question[2],
+            d:question[3],
+        }
     }
     return questions;
 }
-                    //y=mx+b
-// let diff = new linear(.25, 1); // difficulty modifier linear equation any 1 - 4 scale >4 --> 4
-    
-// let numMul = new linear(.15, 1); // number modifier linear equation
-
-// let diffBTWAB = 20; // max difference between left and right number
-
-// let numberOfQuestion = 10; //how many questions to generate

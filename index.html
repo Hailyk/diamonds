@@ -1,30 +1,87 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Diamond Generator</title>
-        <script type="text/x-template" id='template'>
-            <div class='box'>
-                <p class='box_a'>{{diamond.a}}</p>
-                <p class='box_b'>{{diamond.b}}</p>
-                <p class='box_c'>{{diamond.c}}</p>
-                <p class='box_d'>{{diamond.d}}</p>
-            </div>
-        </script>
-        <script type="text/javascript" src="./generate.js"></script>
-        <link rel="stylesheet" text="text/css" href="./styles.css">
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    </head>
-    <body>
-        <div id="sheet">
-            <cell v-for='diamond in diamonds'
-            v-bind:diamond = 'diamond'
-            v-bind:key='diamond.id'
-            v-bind:a = 'diamond.a'
-            v-bind:b = 'diamond.b'
-            v-bind:c = 'diamond.c'
-            v-bind:d = 'diamond.d'
-            ></cell>
+  <head>
+    <title>Diamond Generator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./material.orange-red.min.css" />
+    <script defer src="./material.min.js"></script>
+    <script src="./vue.min.js"></script>
+    <script src="./generate.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title"><a href="./index.html">Diamond Generator</a></span>
         </div>
-    </body>
-    <script type="text/javascript" src="./main.js"></script>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="card demo-card-wide mdl-card mdl-shadow--2dp" id="interface">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Question Generator</h2>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="numberQuestion">
+                  <label class="mdl-textfield__label">Number of Questions</label>
+                  <span class="mdl-textfield__error">Input is not a number!</span>
+                </div>
+                <div>
+                  <div class="mdl-card__title-text"><h6>Difficulty</h6></div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="initDiff">
+                    <label class="mdl-textfield__label">Initial Difficulty</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="diffSlope">
+                    <label class="mdl-textfield__label">Difficulty Increase</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="mdl-card__title-text"><h6>Numbers(mirrored)</h6></div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="initNum">
+                    <label class="mdl-textfield__label">Initial Number</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="numSlope">
+                    <label class="mdl-textfield__label">Number Increase</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="maxMult">
+                    <label class="mdl-textfield__label">Max Randomness Multiplier</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="button_save">Save Setting</button>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="button_load">Load Setting</button>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="generate">Generate</button>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="button_print_question" v-bind:class="{'mdl-button--disabled': notGenerated}">Print Questions</button>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="button_print_answer" v-bind:class="{'mdl-button--disabled': notGenerated}">Print Answers</button>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo">Diamond Generator</div>
+          <ul class="mdl-mini-footer__link-list">
+            <li><a href="./license.html">License</a></li>
+          </ul>
+          <p class="mdl-typography--font-light copyright">Copyright Jiahao Kuang, 2018. Licensed under MIT license</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script src="./main.js"></script>
 </html>

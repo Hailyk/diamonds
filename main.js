@@ -1,67 +1,142 @@
 'use strict';
 
-
-let data ={ 
-    diamonds:[
-        {id:0,a:1,b:1,c:2,d:1},
-        {id:1,a:3,b:2,c:3,d:5},
-        {id:2,a:5,b:8,c:5,d:8}
-    ]
+function button_save(){
+    let dataSave = {};
+    dataSave.numberQuestion = numberQuestion();
+    dataSave.initDiff = initDiff();
+    dataSave.diffSlope = diffSlope();
+    dataSave.initNum = initNum();
+    dataSave.numSlope = numSlope();
+    dataSave.maxMult = maxMult();
+    saveData(dataSave);
 }
 
-Vue.component('cell', {
-    template: '#template',
-    props: ['diamond']
-});
+function button_load(){
+    let dataLoaded = loadData();
+    numberQuestion(dataLoaded.numberQuestion);
+    initDiff(dataLoaded.initDiff);
+    diffSlope(dataLoaded.diffSlope);
+    initNum(dataLoaded.initNum);
+    numSlope(dataLoaded.numSlope);
+    maxMult(dataLoaded.maxMult);
+}
 
-let diamonds = new Vue({
-    el:"#sheet",
-    data(){
-        return data
+function button_print_question(){
+    if(!ui.notGenerated){
+        window.open('./render.html?type=question', '_blank');
     }
-});
-
-function saveArray(data){
-    localStorage.setItem('answer', data[0]);
-    localStorage.setItem('question', data[1]);
 }
 
-function getArray(answer){
-    if(answer){
-        return localStorage.getItem('answer');
+function button_print_answer(){
+    if(!ui.notGenerated){
+        window.open('./render.html?type=answer', '_blank');
     }
-    return localStorage.getItem('question');
 }
 
-function generateToVueInterface(data){
-    let newArray = [];
-    for(let i = 0; i<data.length; i++){
-        newArray[i] = {
-            id:i,
-            a:data[i][0],
-            b:data[i][1],
-            c:data[i][2],
-            d:data[i][3],
+function generateQuestions(){
+    let d = linear(diffSlope()/100,initDiff());
+    let n = linear(numSlope()/100, initNum());
+    let m = maxMult();
+    let q = numberQuestion();
+    let genQuestions = generate(d,n,m,q);
+    localStorage.setItem("answer", JSON.stringify(genQuestions[0]));
+    localStorage.setItem("question", JSON.stringify(genQuestions[1]));
+    ui.notGenerated = false;
+    return genQuestions;
+}
+
+function loadData(){
+    let data = JSON.parse(localStorage.getItem("save"));
+    if(data == null) {
+        data = {
+            numberQuestion:"30",
+            initDiff: "0",
+            diffSlope: "12",
+            initNum: "12",
+            numSlope: "2",
+            maxMult: "10",
+            notGenerated: true
         }
     }
-    return newArray;
+    data.notGenerated = true;
+    return data;
 }
 
-function createQuestion(number, difficult, numberRange, answer){
-    let diamondQuestions = generate(difficult, numberRange, diffBTWAB, number);
-    saveArray(diamondQuestions);
-    if(answer){
-        data.diamonds = generateToVueInterface(diamondQuestions[0]);
+function saveData(data){
+    data = JSON.stringify(data);
+    return localStorage.setItem("save", data);
+}
+
+function numberQuestion(number){
+    if(number != undefined){
+        ui.numberQuestion = number;
     }
-    data.diamonds = generateToVueInterface(diamondQuestions[1]);
+    else{
+        return ui.numberQuestion;
+    }
+    return null;
 }
 
-let diff = new linear(.25, 1); // difficulty modifier linear equation any 1 - 4 scale >4 --> 4
-    
-let numMul = new linear(.15, 1); // number modifier linear equation
+function initDiff(number){
+    if(number != undefined){
+        ui.initDiff = number;
+    }
+    else{
+        return ui.initDiff;
+    }
+    return null;
+}
 
-let diffBTWAB = 20; // max difference between left and right number
+function diffSlope(number){
+    if(number != undefined){
+        ui.diffSlope = number;
+    }
+    else{
+        return ui.diffSlope;
+    }
+    return null;
+}
 
-let numberOfQuestion = 35; //how many questions to generate
+function initNum(number){
+    if(number != undefined){
+        ui.initNum = number;
+    }
+    else{
+        return ui.initNum;
+    }
+    return null;
+}
 
-createQuestion(numberOfQuestion, diff, numMul, false);
+function numSlope(number){
+    if(number != undefined){
+        ui.numSlope = number;
+    }
+    else{
+        return ui.numSlope;
+    }
+    return null;
+}
+
+function maxMult(number){
+    if(number != undefined){
+        ui.maxMult = number;
+    }
+    else{
+        return ui.maxMult;
+    }
+    return null;
+}
+
+let data = loadData();
+
+var ui = new Vue({
+  el: '#interface',
+  data: data,
+  methods: {
+    button_save: button_save,
+    button_load: button_load,
+    generate: generateQuestions,
+    button_print_question: button_print_question,
+    button_print_answer: button_print_answer
+  }
+})

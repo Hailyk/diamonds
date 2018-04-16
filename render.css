@@ -3,6 +3,13 @@ html{
 }
 body{
     margin: 0;
+    text-align: center
+}
+#sheet{
+    overflow: hidden;
+    width: 700px;
+    display: inline-block;
+    margin-top: 50px;
 }
 .box{
     width: 120px;
