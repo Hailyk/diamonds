@@ -40,12 +40,10 @@ function generateAnswer(a, b){
     return ansArr;
 } 
 
-function difficulty(skew,x, diamonObj){
-    let diff = Math.floor(skew.getY(x));
+function difficulty(diff, diamonObj){
     if(diff > 3){
         diff = 3;
     }
-    //console.info("diff: "+diff);
     if(diff == 0){
         diamonObj[2] = "";
         diamonObj[3] = "";
@@ -81,11 +79,13 @@ function linear(m,b){
     return linearObj;
 }
 
-function generate(diff, numMul, range, numQuest){
+function generate(diff, numMul, range){
+    
+    let numQuest = diff[0] + diff[1] + diff[2] + diff[3];
     
     let questions = [[],[]];
-    
-    for(let i = 0; i <= numQuest-1; i++){
+    let diamonds = [];
+    for(let i = 0; i < numQuest; i++){
         let numbers = randomNumber(2,true,numMul,i+1, range);
         
         let answer = generateAnswer(numbers[0],numbers[1]);
@@ -97,16 +97,20 @@ function generate(diff, numMul, range, numQuest){
             d:answer[3],
         }
         
-        let diamond = cloneObj(answer);
-        
-        let question = difficulty(diff,i+1, diamond);
-        
-        questions[1][i] = {
-            id:i,
-            a:question[0],
-            b:question[1],
-            c:question[2],
-            d:question[3],
+        diamonds[i] = answer;
+    }
+    let c=0;
+    for(let i = 0;i<4;i++){
+        for(let j = 0; j < diff[i]; j++){
+            let q = difficulty(i,diamonds[c]);
+            questions[1].push({
+                id:i,
+                a:q[0],
+                b:q[1],
+                c:q[2],
+                d:q[3],
+            });
+            c++;
         }
     }
     return questions;

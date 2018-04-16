@@ -2,9 +2,10 @@
 
 function button_save(){
     let dataSave = {};
-    dataSave.numberQuestion = numberQuestion();
-    dataSave.initDiff = initDiff();
-    dataSave.diffSlope = diffSlope();
+    dataSave.l1 = l1();
+    dataSave.l2 = l2();
+    dataSave.l3 = l3();
+    dataSave.l4 = l4();
     dataSave.initNum = initNum();
     dataSave.numSlope = numSlope();
     dataSave.maxMult = maxMult();
@@ -13,9 +14,10 @@ function button_save(){
 
 function button_load(){
     let dataLoaded = loadData();
-    numberQuestion(dataLoaded.numberQuestion);
-    initDiff(dataLoaded.initDiff);
-    diffSlope(dataLoaded.diffSlope);
+    l1(dataLoaded.l1);
+    l2(dataLoaded.l2);
+    l3(dataLoaded.l3);
+    l4(dataLoaded.l4);
     initNum(dataLoaded.initNum);
     numSlope(dataLoaded.numSlope);
     maxMult(dataLoaded.maxMult);
@@ -34,11 +36,10 @@ function button_print_answer(){
 }
 
 function generateQuestions(){
-    let d = linear(diffSlope()/100,initDiff());
+    let d = [l1(),l2(),l3(),l4()];
     let n = linear(numSlope()/100, initNum());
     let m = maxMult();
-    let q = numberQuestion();
-    let genQuestions = generate(d,n,m,q);
+    let genQuestions = generate(d,n,m);
     localStorage.setItem("answer", JSON.stringify(genQuestions[0]));
     localStorage.setItem("question", JSON.stringify(genQuestions[1]));
     ui.notGenerated = false;
@@ -49,9 +50,10 @@ function loadData(){
     let data = JSON.parse(localStorage.getItem("save"));
     if(data == null) {
         data = {
-            numberQuestion:"30",
-            initDiff: "0",
-            diffSlope: "12",
+            l1: "5",
+            l2: "5",
+            l3: "5",
+            l4: "5",
             initNum: "12",
             numSlope: "2",
             maxMult: "10",
@@ -67,32 +69,42 @@ function saveData(data){
     return localStorage.setItem("save", data);
 }
 
-function numberQuestion(number){
+function l1(number){
     if(number != undefined){
-        ui.numberQuestion = number;
+        ui.l1 = number;
     }
     else{
-        return ui.numberQuestion;
+        return ui.l1;
     }
     return null;
 }
 
-function initDiff(number){
+function l2(number){
     if(number != undefined){
-        ui.initDiff = number;
+        ui.l2 = number;
     }
     else{
-        return ui.initDiff;
+        return ui.l2;
     }
     return null;
 }
 
-function diffSlope(number){
+function l3(number){
     if(number != undefined){
-        ui.diffSlope = number;
+        ui.l3 = number;
     }
     else{
-        return ui.diffSlope;
+        return ui.l3;
+    }
+    return null;
+}
+
+function l4(number){
+    if(number != undefined){
+        ui.l4 = number;
+    }
+    else{
+        return ui.l4;
     }
     return null;
 }
