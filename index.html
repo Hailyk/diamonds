@@ -25,21 +25,26 @@
               <h2 class="mdl-card__title-text">Question Generator</h2>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="numberQuestion">
-                  <label class="mdl-textfield__label">Number of Questions</label>
-                  <span class="mdl-textfield__error">Input is not a number!</span>
-                </div>
                 <div>
-                  <div class="mdl-card__title-text"><h6>Difficulty</h6></div>
+                  <div class="mdl-card__title-text"><h6>Number Of Questions</h6></div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="initDiff">
-                    <label class="mdl-textfield__label">Initial Difficulty</label>
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="l1">
+                    <label class="mdl-textfield__label">Level 1</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="diffSlope">
-                    <label class="mdl-textfield__label">Difficulty Increase</label>
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="l2">
+                    <label class="mdl-textfield__label">Level 2</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="l3">
+                    <label class="mdl-textfield__label">Level 3</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="l4">
+                    <label class="mdl-textfield__label">Level 4</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
                 </div>
