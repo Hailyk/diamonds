@@ -81,7 +81,9 @@ function linear(m,b){
 
 function generate(diff, numMul, range){
     
-    let numQuest = diff[0] + diff[1] + diff[2] + diff[3];
+    let numQuest = Number(diff[0]) + Number(diff[1]) + Number(diff[2]) + Number(diff[3]);
+    
+    console.log(numQuest);
     
     let questions = [[],[]];
     let diamonds = [];
@@ -101,10 +103,10 @@ function generate(diff, numMul, range){
     }
     let c=0;
     for(let i = 0;i<4;i++){
-        for(let j = 0; j < diff[i]; j++){
+        for(let j = 0; j < diff[i].length; j++){
             let q = difficulty(i,diamonds[c]);
             questions[1].push({
-                id:i,
+                id:c,
                 a:q[0],
                 b:q[1],
                 c:q[2],

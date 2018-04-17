@@ -32,8 +32,11 @@ let diamonds = new Vue({
 });
 let list = {}
 if(getParameterByName("type") == "answer"){
+    console.log("answer");
     list = readStorage(true);
 }
-list = readStorage(false);
-console.log(getParameterByName("type"));
+else{
+    list = readStorage(false);
+    
+}
 renderView(list);
