@@ -23,8 +23,7 @@ function randomNumber(amount, whole, skew, x, maxDiff){
     let numArray = [];
     for(let i = 0; i < amount; i++){
         const multiplier = (Math.random()*(maxDiff+1))-(maxDiff/2);
-        let number = skew.getY(x);
-        number = number * multiplier;
+        let number = skew.getY(x) * multiplier;
         if(whole){
             number = Math.floor(number);
         }
@@ -83,8 +82,6 @@ function generate(diff, numMul, range){
     
     let numQuest = Number(diff[0]) + Number(diff[1]) + Number(diff[2]) + Number(diff[3]);
     
-    console.log(numQuest);
-    
     let questions = [[],[]];
     let diamonds = [];
     for(let i = 0; i < numQuest; i++){
@@ -103,7 +100,7 @@ function generate(diff, numMul, range){
     }
     let c=0;
     for(let i = 0;i<4;i++){
-        for(let j = 0; j < diff[i].length; j++){
+        for(let j = 0; j < Number(diff[i]); j++){
             let q = difficulty(i,diamonds[c]);
             questions[1].push({
                 id:c,
