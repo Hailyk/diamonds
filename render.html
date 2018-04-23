@@ -3,11 +3,14 @@
     <head>
         <title>Diamond Generator</title>
         <script type="text/x-template" id='template'>
-            <div class='box'>
-                <p class='box_a'>{{diamond.a}}</p>
-                <p class='box_b'>{{diamond.b}}</p>
-                <p class='box_c'>{{diamond.c}}</p>
-                <p class='box_d'>{{diamond.d}}</p>
+            <div class='questContainer'>
+                <p class='numQuest'>{{diamond.id+")"}}</p>
+                <div class='box'>
+                    <p class='box_a'>{{diamond.a}}</p>
+                    <p class='box_b'>{{diamond.b}}</p>
+                    <p class='box_c'>{{diamond.c}}</p>
+                    <p class='box_d'>{{diamond.d}}</p>
+                </div>
             </div>
         </script>
         <link rel="stylesheet" text="text/css" href="./render.css">

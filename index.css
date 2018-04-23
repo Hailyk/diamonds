@@ -20,3 +20,6 @@ a:-webkit-any-link{
     cursor: pointer;
     text-decoration: none;
 }
+mdl-layout__content{
+    min-height: 100%;
+}

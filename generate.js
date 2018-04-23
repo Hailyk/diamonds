@@ -98,10 +98,44 @@ function generate(diff, numMul, range){
         
         diamonds[i] = answer;
     }
+    
     let c=0;
-    for(let i = 0;i<4;i++){
-        for(let j = 0; j < Number(diff[i]); j++){
-            let q = difficulty(i,diamonds[c]);
+    let difficultyTracker = [Number(diff[0]),Number(diff[1]),Number(diff[2]),Number(diff[3])];
+    for(let i = 0;i<numQuest;i++){
+        let d = -1;
+        let taken = true
+        while(taken == true){
+            d = Math.round(Math.random()*3);
+            if(d == 0){
+                if(difficultyTracker[0] > 0){
+                    difficultyTracker[0]--;
+                    taken = false;
+                }
+            }
+            else if(d == 1){
+                if(difficultyTracker[1] > 0){
+                    difficultyTracker[1]--;
+                    taken = false;
+                }
+            }
+            else if(d == 2){
+                if(difficultyTracker[2] > 0){
+                    difficultyTracker[2]--;
+                    taken = false;
+                }
+            }
+            else if(d == 3){
+                if(difficultyTracker[3] > 0){
+                    difficultyTracker[3]--;
+                    taken = false;
+                }
+            }
+            else{
+                throw Error("Error Generating Difficulty,"+d+" is out of range generated");
+            }
+        }
+        
+        let q = difficulty(d,diamonds[c]);
             questions[1].push({
                 id:c,
                 a:q[0],
@@ -110,7 +144,7 @@ function generate(diff, numMul, range){
                 d:q[3],
             });
             c++;
-        }
     }
+    
     return questions;
 }
