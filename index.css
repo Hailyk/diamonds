@@ -20,6 +20,6 @@ a:-webkit-any-link{
     cursor: pointer;
     text-decoration: none;
 }
-.page-content{
-    min-height: 100%
+#footer{
+    margin-top: 13.75%;
 }
