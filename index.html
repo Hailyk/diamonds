@@ -50,23 +50,17 @@
                   </div>
                 </div>
                 <div>
-                  <div class="mdl-card__title-text"><h6>Numbers(mirrored)</h6></div>
+                  <div class="mdl-card__title-text"><h6>Numbers</h6></div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="initNum">
-                    <label class="mdl-textfield__label">Initial Number</label>
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="minNum">
+                    <label class="mdl-textfield__label">Minimum Number</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="numSlope">
-                    <label class="mdl-textfield__label">Number Increase</label>
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="maxNum">
+                    <label class="mdl-textfield__label">Maximum Number</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" v-model="maxMult">
-                    <label class="mdl-textfield__label">Max Randomness Multiplier</label>
-                    <span class="mdl-textfield__error">Input is not a number!</span>
-                  </div>
-                </div>
             </div>
             <div class="mdl-card__actions mdl-card--border">
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="button_save">Save Setting</button>

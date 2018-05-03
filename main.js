@@ -6,9 +6,8 @@ function button_save(){
     dataSave.l2 = l2();
     dataSave.l3 = l3();
     dataSave.l4 = l4();
-    dataSave.initNum = initNum();
-    dataSave.numSlope = numSlope();
-    dataSave.maxMult = maxMult();
+    dataSave.minNum = minNum();
+    dataSave.maxNum = maxNum();
     saveData(dataSave);
 }
 
@@ -18,9 +17,8 @@ function button_load(){
     l2(dataLoaded.l2);
     l3(dataLoaded.l3);
     l4(dataLoaded.l4);
-    initNum(dataLoaded.initNum);
-    numSlope(dataLoaded.numSlope);
-    maxMult(dataLoaded.maxMult);
+    minNum(dataLoaded.minNum);
+    maxNum(dataLoaded.maxNum);
 }
 
 function button_print_question(){
@@ -37,9 +35,9 @@ function button_print_answer(){
 
 function generateQuestions(){
     let d = [l1(),l2(),l3(),l4()];
-    let n = linear(numSlope()/100, initNum());
-    let m = maxMult();
-    let genQuestions = generate(d,n,m);
+    let min = minNum();
+    let max = maxNum();
+    let genQuestions = generate(d,min,max);
     localStorage.setItem("answer", JSON.stringify(genQuestions[0]));
     localStorage.setItem("question", JSON.stringify(genQuestions[1]));
     ui.notGenerated = false;
@@ -54,9 +52,8 @@ function loadData(){
             l2: "5",
             l3: "5",
             l4: "5",
-            initNum: "12",
-            numSlope: "2",
-            maxMult: "10",
+            maxNum: "-10",
+            minNum: "10",
             notGenerated: true
         }
     }
@@ -109,32 +106,22 @@ function l4(number){
     return null;
 }
 
-function initNum(number){
+function maxNum(number){
     if(number != undefined){
-        ui.initNum = number;
+        ui.maxNum = number;
     }
     else{
-        return ui.initNum;
+        return ui.maxNum;
     }
     return null;
 }
 
-function numSlope(number){
+function minNum(number){
     if(number != undefined){
-        ui.numSlope = number;
+        ui.minNum = number;
     }
     else{
-        return ui.numSlope;
-    }
-    return null;
-}
-
-function maxMult(number){
-    if(number != undefined){
-        ui.maxMult = number;
-    }
-    else{
-        return ui.maxMult;
+        return ui.minNum;
     }
     return null;
 }

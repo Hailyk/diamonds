@@ -19,11 +19,11 @@ function cloneObj(obj){
     return temp;
 }
 
-function randomNumber(amount, whole, skew, x, maxDiff){
+function randomNumber(amount, whole, min, max){
+    max = max + 1;
     let numArray = [];
     for(let i = 0; i < amount; i++){
-        const multiplier = (Math.random()*(maxDiff+1))-(maxDiff/2);
-        let number = skew.getY(x) * multiplier;
+        let number = Math.random() * (max-min) + min;
         if(whole){
             number = Math.floor(number);
         }
@@ -34,8 +34,8 @@ function randomNumber(amount, whole, skew, x, maxDiff){
 
 function generateAnswer(a, b){
     let ansArr = [a,b];
-    ansArr[2] = getSum(a,b);
-    ansArr[3] = getProduct(a,b);
+    ansArr[2] = getProduct(a,b);
+    ansArr[3] = getSum(a,b);
     return ansArr;
 } 
 
@@ -78,14 +78,14 @@ function linear(m,b){
     return linearObj;
 }
 
-function generate(diff, numMul, range){
+function generate(diff, max, min){
     
     let numQuest = Number(diff[0]) + Number(diff[1]) + Number(diff[2]) + Number(diff[3]);
     
     let questions = [[],[]];
     let diamonds = [];
     for(let i = 0; i < numQuest; i++){
-        let numbers = randomNumber(2,true,numMul,i+1, range);
+        let numbers = randomNumber(2, true , parseInt(min), parseInt(max));
         
         let answer = generateAnswer(numbers[0],numbers[1]);
         questions[0][i] = {
